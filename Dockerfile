@@ -10,8 +10,14 @@ RUN apt-get update && apt-get install -y \
     gnupg2 \
     unzip \
     curl \
-    google-chrome-stable \
+    ca-certificates \
     && apt-get clean
+
+# Install Google Chrome
+RUN wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb \
+    && dpkg -i google-chrome-stable_current_amd64.deb \
+    && apt-get install -f -y \
+    && rm google-chrome-stable_current_amd64.deb
 
 # Install ChromeDriver
 RUN LATEST=$(wget -q -O - https://chromedriver.storage.googleapis.com/LATEST_RELEASE) \
