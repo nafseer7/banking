@@ -38,7 +38,7 @@ RUN wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.d
     && rm google-chrome-stable_current_amd64.deb
 
 # Install ChromeDriver version 131.0.6778.204
-RUN wget https://chromedriver.storage.googleapis.com/chrome-for-testing-public/131.0.6778.204/linux64/chromedriver-linux64.zip \
+RUN wget https://chromedriver.storage.googleapis.com/131.0.6778.204/chromedriver_linux64.zip \
     && unzip chromedriver_linux64.zip \
     && mv chromedriver /usr/local/bin/ \
     && rm chromedriver_linux64.zip
