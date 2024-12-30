@@ -31,14 +31,14 @@ RUN apt-get update && apt-get install -y \
     fonts-liberation \
     && apt-get clean
 
-# Install specific version of Google Chrome (113.0.5672.64)
-RUN wget https://dl.google.com/linux/direct/google-chrome-stable_113.0.5672.64-1_amd64.deb \
-    && dpkg -i google-chrome-stable_113.0.5672.64-1_amd64.deb \
+# Install Google Chrome
+RUN wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb \
+    && dpkg -i google-chrome-stable_current_amd64.deb \
     && apt-get install -f -y \
-    && rm google-chrome-stable_113.0.5672.64-1_amd64.deb
+    && rm google-chrome-stable_current_amd64.deb
 
-# Install matching version of ChromeDriver for version 113.0.5672.64
-RUN wget https://storage.googleapis.com/chrome-for-testing-public/113.0.5672.64/linux64/chromedriver-linux64.zip \
+# Install the correct version of ChromeDriver that matches Google Chrome version 131
+RUN wget https://storage.googleapis.com/chrome-for-testing-public/131.0.6778.204/linux64/chromedriver-linux64.zip \
     && unzip chromedriver-linux64.zip \
     && mv chromedriver-linux64/chromedriver /usr/local/bin/ \
     && rm -rf chromedriver-linux64 chromedriver-linux64.zip
