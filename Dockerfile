@@ -4,13 +4,30 @@ FROM python:3.12-slim
 # Set environment variables
 ENV PYTHONUNBUFFERED=1
 
-# Install dependencies
+# Install required dependencies for Chrome
 RUN apt-get update && apt-get install -y \
     wget \
     gnupg2 \
     unzip \
     curl \
     ca-certificates \
+    libx11-6 \
+    libxcomposite1 \
+    libxrandr2 \
+    libatk1.0-0 \
+    libatk-bridge2.0-0 \
+    libcups2 \
+    libdbus-1-3 \
+    libdrm2 \
+    libexpat1 \
+    libgbm1 \
+    libglib2.0-0 \
+    libgtk-3-0 \
+    libnss3 \
+    libpango-1.0-0 \
+    libvulkan1 \
+    libasound2 \
+    xdg-utils \
     && apt-get clean
 
 # Install Google Chrome
