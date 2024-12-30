@@ -28,6 +28,7 @@ RUN apt-get update && apt-get install -y \
     libvulkan1 \
     libasound2 \
     xdg-utils \
+    fonts-liberation \
     && apt-get clean
 
 # Install Google Chrome
