@@ -216,3 +216,149 @@ async def load_card(card_data: CardLoadData):
 
     finally:
         driver.quit()
+
+
+        
+@app.post("/fetch-user-data/")
+async def fetch_user_data():
+    # Initialize the WebDriver instance
+    driver = webdriver.Chrome(service=service, options=options)
+
+    try:
+        # Step 1: Login to the system
+        driver.get("https://banking.digitalexica.com/user.html")
+
+        # Check if we are on the login page
+        if "user.html" in driver.current_url:
+            logging.info("Login page detected, performing login...")
+
+            wait = WebDriverWait(driver, 10)
+            wait.until(EC.presence_of_element_located((By.XPATH, "//*[@id='loginForm']")))
+
+            # Enter credentials and login
+            username = driver.find_element(By.XPATH, "//*[@id='loginForm']/div[1]/input")
+            driver.execute_script("arguments[0].value='guy';", username)
+
+            password = driver.find_element(By.XPATH, "//*[@id='loginForm']/div[2]/input")
+            driver.execute_script("arguments[0].value='Ninja2024!';", password)
+
+            login_button = driver.find_element(By.XPATH, "//*[@id='loginForm']/input")
+            login_button.click()
+
+            # Wait for login completion
+            WebDriverWait(driver, 10).until(EC.url_changes("https://banking.digitalexica.com/user.html"))
+            logging.info(f"Current URL after login: {driver.current_url}")
+
+        # Step 2: Navigate to the user dashboard
+        driver.get("https://banking.digitalexica.com/userdashboard.php")
+
+        # Wait for the page to load
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, "//*[@id='content']")))
+
+        # Step 3: Extract the required fields using the provided XPaths
+        try:
+            first_name = driver.find_element(By.XPATH, "//*[@id='content']/div/div[3]/div[1]/div[1]/div[2]/p[1]").text
+        except Exception:
+            first_name = "N/A"
+
+        try:
+            surname = driver.find_element(By.XPATH, "//*[@id='content']/div/div[3]/div[1]/div[1]/div[2]/p[2]").text
+        except Exception:
+            surname = "N/A"
+
+        try:
+            email = driver.find_element(By.XPATH, "//*[@id='content']/div/div[3]/div[1]/div[1]/div[2]/p[3]").text
+        except Exception:
+            email = "N/A"
+
+        try:
+            date_of_birth = driver.find_element(By.XPATH, "//*[@id='content']/div/div[3]/div[1]/div[1]/div[2]/p[4]").text
+        except Exception:
+            date_of_birth = "N/A"
+
+        # Return the extracted data
+        return {
+            "first_name": first_name.split(":")[1].strip() if ":" in first_name else first_name,
+            "surname": surname.split(":")[1].strip() if ":" in surname else surname,
+            "email": email.split(":")[1].strip() if ":" in email else email,
+            "date_of_birth": date_of_birth.split(":")[1].strip() if ":" in date_of_birth else date_of_birth
+        }
+
+    except Exception as e:
+        logging.error(f"Error: {e}")
+        return {"status": "error", "message": str(e)}
+
+    finally:
+        driver.quit()
+        
+        
+@app.post("/fetch-transaction-data/")
+async def fetch_user_data():
+    # Initialize the WebDriver instance
+    driver = webdriver.Chrome(service=service, options=options)
+
+    try:
+        # Step 1: Login to the system
+        driver.get("https://banking.digitalexica.com/user.html")
+
+        # Check if we are on the login page
+        if "user.html" in driver.current_url:
+            logging.info("Login page detected, performing login...")
+
+            wait = WebDriverWait(driver, 10)
+            wait.until(EC.presence_of_element_located((By.XPATH, "//*[@id='loginForm']")))
+
+            # Enter credentials and login
+            username = driver.find_element(By.XPATH, "//*[@id='loginForm']/div[1]/input")
+            driver.execute_script("arguments[0].value='guy';", username)
+
+            password = driver.find_element(By.XPATH, "//*[@id='loginForm']/div[2]/input")
+            driver.execute_script("arguments[0].value='Ninja2024!';", password)
+
+            login_button = driver.find_element(By.XPATH, "//*[@id='loginForm']/input")
+            login_button.click()
+
+            # Wait for login completion
+            WebDriverWait(driver, 10).until(EC.url_changes("https://banking.digitalexica.com/user.html"))
+            logging.info(f"Current URL after login: {driver.current_url}")
+
+        # Step 2: Navigate to the user dashboard
+        driver.get("https://banking.digitalexica.com/userdashboard.php")
+
+        # Wait for the page to load
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, "//*[@id='content']")))
+
+        # Step 3: Extract the required fields using the provided XPaths
+
+        try:
+            amount_date_text_two = driver.find_element(By.XPATH, "//*[@id='content']/div/div[3]/div[2]/div/div[2]").text
+        except Exception:
+            amount_date_text_two = "N/A"
+
+       
+
+        # Process the `amount_date_text_two` to split it into individual entries
+        data_entries = []
+        if amount_date_text_two != "N/A":
+            lines = amount_date_text_two.split("\n")
+            for line in lines:
+                data_entries.append(line.strip())
+
+        # Prepare the response
+        response_data = {
+            "data_one": data_entries[0] if len(data_entries) > 0 else "N/A",
+            "data_two": data_entries[1] if len(data_entries) > 1 else "N/A",
+            "data_three": data_entries[2] if len(data_entries) > 2 else "N/A",
+            "data_four": data_entries[3] if len(data_entries) > 3 else "N/A"
+        }
+
+        # Return the response
+        return response_data
+
+
+    except Exception as e:
+        logging.error(f"Error: {e}")
+        return {"status": "error", "message": str(e)}
+
+    finally:
+        driver.quit()
