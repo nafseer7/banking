@@ -218,7 +218,7 @@ async def load_card(card_data: CardLoadData):
         driver.quit()
 
 
-        
+
 @app.post("/fetch-user-data/")
 async def fetch_user_data():
     # Initialize the WebDriver instance
@@ -275,13 +275,32 @@ async def fetch_user_data():
             date_of_birth = driver.find_element(By.XPATH, "//*[@id='content']/div/div[3]/div[1]/div[1]/div[2]/p[4]").text
         except Exception:
             date_of_birth = "N/A"
+            
+        try: 
+            main_balance = driver.find_element(By.XPATH, "//*[@id='content']/div/div[2]/div[1]/div/div/div/div[1]/div[2]").text
+        except Exception:
+            main_balance = "N/A"
+            
+        try: 
+            money_loaded = driver.find_element(By.XPATH, "//*[@id='content']/div/div[2]/div[2]/div/div/div/div[1]/div[2]").text
+        except Exception:
+            money_loaded = "N/A"
+            
+        try: 
+            active_cards = driver.find_element(By.XPATH, "//*[@id='content']/div/div[2]/div[3]/div/div/div/div[1]/div[2]").text
+        except Exception:
+            active_cards = "N/A"
 
         # Return the extracted data
         return {
             "first_name": first_name.split(":")[1].strip() if ":" in first_name else first_name,
             "surname": surname.split(":")[1].strip() if ":" in surname else surname,
             "email": email.split(":")[1].strip() if ":" in email else email,
-            "date_of_birth": date_of_birth.split(":")[1].strip() if ":" in date_of_birth else date_of_birth
+            "date_of_birth": date_of_birth.split(":")[1].strip() if ":" in date_of_birth else date_of_birth,
+            "main_balance": main_balance,
+            "money_loaded": money_loaded,
+            "active_cards": active_cards
+            
         }
 
     except Exception as e:
@@ -290,8 +309,8 @@ async def fetch_user_data():
 
     finally:
         driver.quit()
-        
-        
+
+
 @app.post("/fetch-transaction-data/")
 async def fetch_user_data():
     # Initialize the WebDriver instance
