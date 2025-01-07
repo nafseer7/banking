@@ -48,10 +48,10 @@ async def create_card(card_data: CardData):
             wait.until(EC.presence_of_element_located((By.XPATH, "//*[@id='loginForm']")))
 
             username = driver.find_element(By.XPATH, "//*[@id='loginForm']/div[1]/input")
-            driver.execute_script("arguments[0].value='guy';", username)
+            driver.execute_script("arguments[0].value='finance';", username)
 
             password = driver.find_element(By.XPATH, "//*[@id='loginForm']/div[2]/input")
-            driver.execute_script("arguments[0].value='Ninja2024!';", password)
+            driver.execute_script("arguments[0].value='Finance2025!!@';", password)
 
             login_button = driver.find_element(By.XPATH, "//*[@id='loginForm']/input")
             login_button.click()
@@ -111,10 +111,10 @@ async def load_card(card_data: CardLoadData):
 
             # Enter credentials and login
             username = driver.find_element(By.XPATH, "//*[@id='loginForm']/div[1]/input")
-            driver.execute_script("arguments[0].value='guy';", username)
+            driver.execute_script("arguments[0].value='finance';", username)
 
             password = driver.find_element(By.XPATH, "//*[@id='loginForm']/div[2]/input")
-            driver.execute_script("arguments[0].value='Ninja2024!';", password)
+            driver.execute_script("arguments[0].value='Finance2025!!@';", password)
 
             login_button = driver.find_element(By.XPATH, "//*[@id='loginForm']/input")
             login_button.click()
@@ -175,10 +175,10 @@ async def load_card(card_data: CardLoadData):
 
             # Enter credentials and login
             username = driver.find_element(By.XPATH, "//*[@id='loginForm']/div[1]/input")
-            driver.execute_script("arguments[0].value='guy';", username)
+            driver.execute_script("arguments[0].value='finance';", username)
 
             password = driver.find_element(By.XPATH, "//*[@id='loginForm']/div[2]/input")
-            driver.execute_script("arguments[0].value='Ninja2024!';", password)
+            driver.execute_script("arguments[0].value='Finance2025!!@';", password)
 
             login_button = driver.find_element(By.XPATH, "//*[@id='loginForm']/input")
             login_button.click()
@@ -237,10 +237,10 @@ async def fetch_user_data():
 
             # Enter credentials and login
             username = driver.find_element(By.XPATH, "//*[@id='loginForm']/div[1]/input")
-            driver.execute_script("arguments[0].value='guy';", username)
+            driver.execute_script("arguments[0].value='finance';", username)
 
             password = driver.find_element(By.XPATH, "//*[@id='loginForm']/div[2]/input")
-            driver.execute_script("arguments[0].value='Ninja2024!';", password)
+            driver.execute_script("arguments[0].value='Finance2025!!@';", password)
 
             login_button = driver.find_element(By.XPATH, "//*[@id='loginForm']/input")
             login_button.click()
@@ -329,10 +329,10 @@ async def fetch_user_data():
 
             # Enter credentials and login
             username = driver.find_element(By.XPATH, "//*[@id='loginForm']/div[1]/input")
-            driver.execute_script("arguments[0].value='guy';", username)
+            driver.execute_script("arguments[0].value='finance';", username)
 
             password = driver.find_element(By.XPATH, "//*[@id='loginForm']/div[2]/input")
-            driver.execute_script("arguments[0].value='Ninja2024!';", password)
+            driver.execute_script("arguments[0].value='Finance2025!!@';", password)
 
             login_button = driver.find_element(By.XPATH, "//*[@id='loginForm']/input")
             login_button.click()
