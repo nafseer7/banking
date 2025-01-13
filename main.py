@@ -18,6 +18,7 @@ CHROMEDRIVER_PATH = "/usr/local/bin/chromedriver"
 class CardData(BaseModel):
     card_name: str
     amount: float
+    binno: str
 
 class CardLoadData(BaseModel):
     id: str
@@ -34,7 +35,7 @@ options.page_load_strategy = "eager"
 
 @app.post("/create-card/")
 async def create_card(card_data: CardData):
-    logging.info(f"Received data: card_name={card_data.card_name}, amount={card_data.amount}")
+    logging.info(f"Received data: card_name={card_data.card_name}, amount={card_data.amount}, binno={card_data.binno}")
 
     driver = webdriver.Chrome(service=service, options=options)
 
@@ -72,6 +73,12 @@ async def create_card(card_data: CardData):
 
         bin_select = Select(driver.find_element(By.NAME, "bin"))
         bin_select.select_by_value("2")
+
+        wait = WebDriverWait(driver, 10)
+        wait.until(EC.presence_of_element_located((By.NAME, "binno")))
+        
+        binno_select = Select(driver.find_element(By.NAME, "binno"))
+        binno_select.select_by_value(card_data.binno)
 
         wait.until(EC.presence_of_element_located((By.XPATH, '//input[@value="Create"]')))
         create_button = driver.find_element(By.XPATH, '//input[@value="Create"]')
